@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class SummerVacationPresentationLayer 
 {
-    private static SummerVacationDAL GetDAL()
+    public static SummerVacationDAL GetDAL()
     {
         Scanner credentialScanner = new Scanner(System.in);
         System.out.print("Enter username: ");

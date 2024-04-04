@@ -8,7 +8,7 @@ public class SummerVacationDAL
 
     // Notice that the databaseName, user and password are passed into this method. We are in the DAL,
     // and we cannot prompt the user for this information. That should be done in the presentation layer
-    private void InitializeConnection(String databaseName, String user, String password)
+    public void InitializeConnection(String databaseName, String user, String password)
     {
         try
         {
@@ -47,5 +47,21 @@ public class SummerVacationDAL
             System.out.println("Failed to get activity destinations" + ex.getMessage());
             return parks;
         }
+        public void AddParkAndActivities(String parkName, String parkLocation, List<String> activities) {
+            try {
+                CallableStatement cstmt = connection.prepareCall("{call AddParkAndActivities(?, ?, ?)}");
+                cstmt.setString(1, parkName);
+                cstmt.setString(2, parkLocation);
+                StringBuilder activitiesList = new StringBuilder();
+                for (String activity : activities) {
+                    activitiesList.append(activity).append(",");
+                }
+                cstmt.setString(3, activitiesList.toString());
+                cstmt.execute();
+            } catch (SQLException ex) {
+                System.out.println("Failed to add park and activities: " + ex.getMessage());
+            }
+        }
+    
       }
 }
