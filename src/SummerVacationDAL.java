@@ -64,4 +64,9 @@ public class SummerVacationDAL
         }
     
       }
+
+    public void AddParkAndActivities(String parkName, String parkLocation, List<String> activities) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'AddParkAndActivities'");
+    }
 }

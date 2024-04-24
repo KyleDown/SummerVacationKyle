@@ -4,7 +4,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.mysql.cj.jdbc.CallableStatement;
 
@@ -32,54 +33,39 @@ public class SummerVacationDALTest {
         callableStatement = mock(CallableStatement.class);
     }
 
-   
-    private Connection mock(Class<Connection> class1) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mock'");
-    }
-
-
     @Test
     public void testInitializeConnection() {
         try {
-            // Call the method to initialize the connection
             summerVacationDAL.InitializeConnection(DATABASE_NAME, USERNAME, PASSWORD);
-            // Check if connection is not null after initialization
             assertNotNull(summerVacationDAL.getConnection());
         } catch (Exception e) {
             fail("Exception thrown during connection initialization: " + e.getMessage());
         }
-        @Test
-        public void testTryGetDestinationForActivity() {
+
+    @Test
+    public void testTryGetDestinationForActivity() {
         try {
-            
             String testActivityName = "TestActivity";
-            
-            List<String> destinations = summerVacationDAL.TryGetDestinationForActivity(testActivityName);
-            
+            List<String> destinations = summerVacationDAL.TryGetDestinationForActivity(testActivityName);  
             assertNotNull(destinations);
             assertFalse(destinations.isEmpty());
         } catch (Exception e) {
             fail("Exception thrown during TryGetDestinationForActivity method: " + e.getMessage());
         }
     }
-}
+
     @Test 
     public void testAddParkAndActivities() throws SQLException{
-String parkName = "TestPark";
+    String parkName = "TestPark";
         String parkLocation = "TestLocation";
         List<String> activities = Arrays.asList("Hiking", "Swimming");
 
         when(connection.prepareCall(toString())).thenReturn(callableStatement);
 
-        // Call the method
         summerVacationDAL.AddParkAndActivities(parkName, parkLocation, activities);
 
-        // Verify that prepareCall was called with the correct SQL
         verify(connection).prepareCall("{call AddParkAndActivities(?, ?, ?)}");
-        // Verify that setString was called 3 times (for parkName, parkLocation, and activitiesList)
         verify(callableStatement, times(3)).setString(anyInt(), toString());
-        // Verify that execute was called
         verify(callableStatement).execute();
     }
 }
